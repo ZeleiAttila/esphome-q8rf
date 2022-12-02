@@ -26,40 +26,41 @@ wifi:
 
 captive_portal:
 
-external_components:
-  - source:
-      type: local
-      path: d:\Work\Esphome\q8rf\esphome-q8rf\components\
 
 
 spi:
   clk_pin: D5
   miso_pin: D6
-  mosi_pin: D7    
+  mosi_pin: D7  
 
+external_components:
+  - source: github://ZeleiAttila/esphome-q8rf@main
+    components: [ q8rf_zone_controller ]
 q8rf_zone_controller:
   id: Q8RFController
   cs_pin: D8
 
 switch:
   - platform: q8rf_zone_controller
-    name: study_heater_1
+    name: controller_3_zone_3
     q8rf_device_id: 0x6ed5
-    q8rf_zone_id: 1
+    q8rf_zone_id: 3
 
   - platform: q8rf_zone_controller
-    name: study_heater_2
-    q8rf_device_id: 0x6ed6
-    q8rf_zone_id: 2
+    name: controller_3_zone_4
+    q8rf_device_id: 0x6ed5
+    q8rf_zone_id: 4
 
 button:
   - platform: q8rf_zone_controller
-    name: study_heater_1
+    name: controller_3_zone_3
     q8rf_device_id: 0x6ed5
-    q8rf_zone_id: 1
+    q8rf_zone_id: 3
 
   - platform: q8rf_zone_controller
-    name: study_heater_2
-    q8rf_device_id: 0x6ed6
-    q8rf_zone_id: 2
+    name: controller_3_zone_4
+    q8rf_device_id: 0x6ed5
+    q8rf_zone_id: 4
       
+
+  

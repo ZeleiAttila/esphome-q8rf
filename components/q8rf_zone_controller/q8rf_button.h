@@ -18,6 +18,7 @@ namespace esphome
       uint16_t q8rf_zone_id_ = 0;
       uint8_t msg_pair_[45];
       Q8RFController *controller_;
+      bool initialized_ = false;
 
     public:
       void set_q8rf_device_id(uint16_t id);
