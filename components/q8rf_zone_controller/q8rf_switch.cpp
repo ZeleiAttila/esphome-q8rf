@@ -76,7 +76,7 @@ namespace esphome
             ESP_LOGCONFIG(TAG, "  Q8RF Zone ID: 0x%04x", this->q8rf_zone_id_);
         }
 
-        void Q8RFSwitch::update()
+       /* void Q8RFSwitch::update()
         {
             if (this->initialized_)
             {
@@ -99,7 +99,7 @@ namespace esphome
                     this->write_state(state_);
                 }
             }
-        }
+        }*/
 
         void Q8RFSwitch::set_q8rf_device_id(uint16_t id) { this->q8rf_device_id_ = id; }
         void Q8RFSwitch::set_q8rf_zone_id(uint16_t id) { this->q8rf_zone_id_ = id; }

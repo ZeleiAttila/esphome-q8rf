@@ -9,7 +9,7 @@ namespace esphome
   namespace q8rf
   {
 
-    class Q8RFSwitch : public switch_::Switch, public PollingComponent
+    class Q8RFSwitch : public switch_::Switch, public Component
     {
     protected:
       uint16_t q8rf_device_id_ = 0;
@@ -29,7 +29,7 @@ namespace esphome
       static const uint8_t Q7RF_MSG_CMD_TURN_OFF_HEATING = 0x0F;
 
     public:
-      Q8RFSwitch() : PollingComponent(1000) {}
+      
       void set_q8rf_device_id(uint16_t id);
       void set_q8rf_zone_id(uint16_t id);
       void set_q8rf_turn_on_watchdog_interval(uint32_t interval);
@@ -40,7 +40,7 @@ namespace esphome
       void setup() override;
       void write_state(bool state) override;
       void dump_config() override;
-      void update() override;
+     // void update() override;
     };
 
   } // namespace q8rf

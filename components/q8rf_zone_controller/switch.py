@@ -48,6 +48,7 @@ async def to_code(config):
     cg.add(var.set_q8rf_device_id(config[CONF_Q8RF_DEVICE_ID]))
     cg.add(var.set_q8rf_zone_id(config[CONF_Q8RF_ZONE_ID]))
     cg.add(var.set_controller(controller))
+    cg.add(var.setup())
 
     if CONF_Q8RF_RESEND_INTERVAL in config:
         cg.add(var.set_q8rf_resend_interval(config[CONF_Q8RF_RESEND_INTERVAL]))
@@ -57,5 +58,3 @@ async def to_code(config):
                 config[CONF_Q8RF_TURN_ON_WATCHDOG_INTERVAL]
             )
         )
-
-    cg.add(var.setup())

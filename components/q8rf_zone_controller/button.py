@@ -40,4 +40,4 @@ async def to_code(config):
     cg.add(var.set_q8rf_device_id(config[CONF_q8rf_DEVICE_ID]))
     cg.add(var.set_q8rf_zone_id(config[CONF_q8rf_ZONE_ID]))
     cg.add(var.set_controller(controller))
-    cg.add(var.setup())
+    
