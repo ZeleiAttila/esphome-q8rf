@@ -16,6 +16,7 @@ namespace esphome
         }
         void Q8RFButton::press_action()
         {
+            ESP_LOGCONFIG(TAG, "press_action start");
             ESP_LOGCONFIG(TAG, "press_action %s ", this->initialized_ ? "true" : "false");
 
             if (!this->initialized_)
