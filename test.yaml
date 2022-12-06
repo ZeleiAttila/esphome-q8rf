@@ -43,23 +43,22 @@ q8rf_zone_controller:
 
 switch:
   - platform: q8rf_zone_controller
-    name: study_heater_1
+    name: controller_3_zone_3
     q8rf_device_id: 0x6ed5
-    q8rf_zone_id: 1
+    q8rf_zone_id: 3
 
   - platform: q8rf_zone_controller
-    name: study_heater_2
-    q8rf_device_id: 0x6ed6
-    q8rf_zone_id: 2
+    name: controller_3_zone_4
+    q8rf_device_id: 0x6ed5
+    q8rf_zone_id: 4
 
 button:
   - platform: q8rf_zone_controller
-    name: study_heater_1
+    name: controller_3_zone_3
     q8rf_device_id: 0x6ed5
-    q8rf_zone_id: 1
+    q8rf_zone_id: 3
 
   - platform: q8rf_zone_controller
-    name: study_heater_2
-    q8rf_device_id: 0x6ed6
-    q8rf_zone_id: 2
-      
+    name: controller_3_zone_4
+    q8rf_device_id: 0x6ed5
+    q8rf_zone_id: 4
