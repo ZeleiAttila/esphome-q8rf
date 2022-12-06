@@ -22,7 +22,7 @@ namespace esphome
       unsigned long last_msg_time_ = 0;
       unsigned long last_turn_on_time_ = 0;
       bool initialized_ = false;
-      uint32_t q8rf_resend_interval_ = 60000;
+      uint32_t q8rf_resend_interval_ = 600000;
       uint32_t q8rf_turn_on_watchdog_interval_ = 0;
 
       static const uint8_t Q7RF_MSG_CMD_TURN_ON_HEATING = 0xFF;

@@ -101,6 +101,7 @@ namespace esphome
 
     void Q8RFController::compile_msg(uint16_t device_id, uint8_t zone_id, uint8_t cmd, uint8_t *msg)
     {
+
       char binary_msg[360];
       char *cursor = binary_msg;
 
@@ -156,20 +157,6 @@ namespace esphome
         *cursor_msg = strtoul(binary_byte, 0, 2);
         cursor_msg++;
       }
-
-#if ESPHOME_LOG_LEVEL >= ESPHOME_LOG_LEVEL_VERBOSE
-      // Assemble debug print
-      char debug[91];
-      cursor = debug;
-      cursor_msg = msg;
-      for (int b = 0; b < 45; b++)
-      {
-        sprintf(cursor, "%x", *cursor_msg);
-        cursor += 2;
-        cursor_msg++;
-      }
-      ESP_LOGV(TAG, "Encoded msg: 0x%02x as 0x%s", cmd, debug);
-#endif
     }
 
     bool Q8RFController::reset_cc()
@@ -272,7 +259,7 @@ namespace esphome
       this->write_cc_register(reg, arr, 1);
     }
 
-    bool Q8RFController::send_cc_data(const uint8_t *data, size_t length)
+    bool Q8RFController::send_cc_data(uint8_t *data, size_t length)
     {
       uint8_t buffer[length];
       for (int i = 0; i < length; i++)
@@ -280,7 +267,6 @@ namespace esphome
         buffer[i] = *data;
         data++;
       }
-
       this->send_cc_cmd(CMD_SIDLE);
       this->send_cc_cmd(CMD_SFRX);
       this->send_cc_cmd(CMD_SFTX);
@@ -307,11 +293,10 @@ namespace esphome
 
     bool Q8RFController::send_msg(uint8_t *msg)
     {
-
       bool result = false;
       const char *text_msg = NULL;
 
-      result = this->send_cc_data(msg, sizeof(msg));
+      result = this->send_cc_data(msg, 45);
 
       if (result)
       {
@@ -351,7 +336,7 @@ namespace esphome
     void Q8RFController::dump_config()
     {
       ESP_LOGCONFIG(TAG, "Q8RF:");
-      LOG_PIN("  CC1101 CS Pin: ", this->cs_);
+      LOG_PIN("CC1101 CS Pin: ", this->cs_);
     }
 
   } // namespace q7rf

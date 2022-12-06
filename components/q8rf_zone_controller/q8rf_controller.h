@@ -39,7 +39,7 @@ namespace esphome
       void read_cc_config_register(uint8_t reg, uint8_t *value);
       void write_cc_register(uint8_t reg, uint8_t *value, size_t length);
       void write_cc_config_register(uint8_t reg, uint8_t value);
-      bool send_cc_data(const uint8_t *data, size_t length);
+      bool send_cc_data( uint8_t *data, size_t length);
     
 
     public:

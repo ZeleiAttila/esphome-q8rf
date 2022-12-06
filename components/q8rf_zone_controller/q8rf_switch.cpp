@@ -27,12 +27,12 @@ namespace esphome
             controller_->compile_msg(this->q8rf_device_id_, this->q8rf_zone_id_, Q7RF_MSG_CMD_TURN_OFF_HEATING, this->msg_heat_off_);
 
             this->initialized_ = true;
-            ESP_LOGCONFIG(TAG, "setup");
         }
 
         void Q8RFSwitch::write_state(bool state)
         {
-            ESP_LOGCONFIG(TAG, "write_state: %s", state);
+
+            ESP_LOGCONFIG(TAG, "write_state: %s", state ? "true" : "false");
 
             if (!this->initialized_)
             {
@@ -44,11 +44,15 @@ namespace esphome
 
                 if (state)
                 {
+                    ESP_LOGCONFIG(TAG, "Send message ON device: 0x%04x zone: %d ", this->q8rf_device_id_, this->q8rf_zone_id_);
+
                     controller_->send_msg(msg_heat_on_);
                     this->last_turn_on_time_ = millis();
                 }
                 else
                 {
+                    ESP_LOGI(TAG, "Send message OFF device: 0x%04x zone: %d ", this->q8rf_device_id_, this->q8rf_zone_id_);
+
                     controller_->send_msg(msg_heat_off_);
                 }
 
@@ -57,6 +61,7 @@ namespace esphome
                     this->set_state(state);
                 }
             }
+            this->last_msg_time_ = millis();
         }
 
         void Q8RFSwitch::set_state(bool state)
@@ -66,14 +71,13 @@ namespace esphome
         }
         void Q8RFSwitch::set_controller(Q8RFController *controller)
         {
-            ESP_LOGCONFIG(TAG, "set_controller");
             this->controller_ = controller;
         }
 
         void Q8RFSwitch::dump_config()
         {
             ESP_LOGCONFIG(TAG, "  Q8RF Device ID: 0x%04x", this->q8rf_device_id_);
-            ESP_LOGCONFIG(TAG, "  Q8RF Zone ID: 0x%04x", this->q8rf_zone_id_);
+            ESP_LOGCONFIG(TAG, "  Q8RF Zone ID: %d", this->q8rf_zone_id_);
         }
 
         void Q8RFSwitch::update()
