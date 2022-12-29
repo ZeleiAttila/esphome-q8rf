@@ -208,7 +208,7 @@ namespace esphome
           return false;
         }
 #if ESPHOME_LOG_LEVEL >= ESPHOME_LOG_LEVEL_VERBOSE
-        ESP_LOGV(TAG, "Written CC1101 config register. reg: %02x value: %02x", Q7RF_REG_CONFIG[i], Q7RF_REG_CONFIG[i + 1]);
+        ESP_LOGV(TAG, "Written CC1101 config register. reg: %02x value: %02x", Q8RF_REG_CONFIG[i], Q8RF_REG_CONFIG[i + 1]);
 #endif
       }
 
