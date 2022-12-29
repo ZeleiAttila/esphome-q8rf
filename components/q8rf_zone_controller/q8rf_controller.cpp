@@ -235,7 +235,7 @@ namespace esphome
           return false;
         }
 #if ESPHOME_LOG_LEVEL >= ESPHOME_LOG_LEVEL_VERBOSE
-        ESP_LOGV(TAG, "Written CC1101 PATABLE[%d]: %02x", i, Q7RF_PA_TABLE[i]);
+        ESP_LOGV(TAG, "Written CC1101 PATABLE[%d]: %02x", i, Q8RF_PA_TABLE[i]);
 #endif
       }
 
