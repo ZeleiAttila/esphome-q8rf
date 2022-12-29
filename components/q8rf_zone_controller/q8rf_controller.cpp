@@ -157,6 +157,20 @@ namespace esphome
         *cursor_msg = strtoul(binary_byte, 0, 2);
         cursor_msg++;
       }
+
+#if ESPHOME_LOG_LEVEL >= ESPHOME_LOG_LEVEL_VERBOSE
+      // Assemble debug print
+      char debug[91];
+      cursor = debug;
+      cursor_msg = msg;
+      for (int b = 0; b < 45; b++)
+      {
+        sprintf(cursor, "%x", *cursor_msg);
+        cursor += 2;
+        cursor_msg++;
+      }
+      ESP_LOGV(TAG, "Encoded msg: 0x%02x as 0x%s", cmd, debug);
+#endif
     }
 
     bool Q8RFController::reset_cc()
