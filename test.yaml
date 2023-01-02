@@ -6,6 +6,7 @@ esp8266:
 
 # Enable logging
 logger:
+  level:  VERY_VERBOSE
 
 # Enable Home Assistant API
 api:
@@ -37,6 +38,7 @@ spi:
   miso_pin: D6
   mosi_pin: D7    
 
+   
 q8rf_zone_controller:
   id: Q8RFController
   cs_pin: D8
@@ -44,21 +46,21 @@ q8rf_zone_controller:
 switch:
   - platform: q8rf_zone_controller
     name: controller_3_zone_3
-    q8rf_device_id: 0x6ed5
+    q8rf_device_id: 0xcd5d
     q8rf_zone_id: 3
 
   - platform: q8rf_zone_controller
     name: controller_3_zone_4
-    q8rf_device_id: 0x6ed5
+    q8rf_device_id: 0x799a
     q8rf_zone_id: 4
 
 button:
   - platform: q8rf_zone_controller
-    name: controller_3_zone_3
+    name: controller_1
     q8rf_device_id: 0x6ed5
-    q8rf_zone_id: 3
+    q8rf_zone_id: 1
 
   - platform: q8rf_zone_controller
-    name: controller_3_zone_4
-    q8rf_device_id: 0x6ed5
-    q8rf_zone_id: 4
+    name: controller_3_zone_3_1
+    q8rf_device_id: 0x75cf
+    q8rf_zone_id: 3

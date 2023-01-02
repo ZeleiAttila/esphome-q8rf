@@ -21,16 +21,12 @@ namespace esphome
                                                  spi::DATA_RATE_1KHZ>
     {
     protected:
-   
-
       bool initialized_ = false;
-  
+
       uint8_t pending_msg_ = MSG_NONE;
       unsigned long last_msg_time_ = 0;
       unsigned long last_turn_on_time_ = 0;
       uint8_t msg_errors_ = 0;
-
-    
 
     private:
       bool reset_cc();
@@ -39,14 +35,14 @@ namespace esphome
       void read_cc_config_register(uint8_t reg, uint8_t *value);
       void write_cc_register(uint8_t reg, uint8_t *value, size_t length);
       void write_cc_config_register(uint8_t reg, uint8_t value);
-      bool send_cc_data( uint8_t *data, size_t length);
-    
+      bool send_cc_data(uint8_t *data, size_t length);
 
     public:
       void compile_msg(uint16_t device_id, uint8_t zone_id, uint8_t cmd, uint8_t *msg);
       void setup() override;
       void dump_config() override;
       bool send_msg(uint8_t *msg);
+      void scan(uint16_t q8rf_zone_id, uint16_t q8rf_device_id_from, uint16_t q8rf_device_id_to, uint16_t interval);
     };
 
   } // namespace q7rf
