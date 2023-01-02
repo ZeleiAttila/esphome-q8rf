@@ -1,6 +1,8 @@
-#include "esphome/core/log.h"
+#include "esphome/core/component.h"
+#include "esphome/components/spi/spi.h"
+#include "esphome/components/api/custom_api_device.h"
+#include "esphome.h"
 #include "q8rf_controller.h"
-#include <stdint.h>
 
 namespace esphome
 {
@@ -343,12 +345,7 @@ namespace esphome
         return;
       }
 
-      register_service(&Q8RFController::scan, "scan",
-                       {"q8rf_zone_id",
-                        "q8rf_device_id_from",
-                        "q8rf_device_id_to",
-                        "interval"});
-
+      
       this->initialized_ = true;
     }
 
@@ -356,19 +353,6 @@ namespace esphome
     {
       ESP_LOGCONFIG(TAG, "Q8RF:");
       LOG_PIN("CC1101 CS Pin: ", this->cs_);
-    }
-
-    void Q8RFController::scan(uint16_t q8rf_zone_id, uint16_t q8rf_device_id_from, uint16_t q8rf_device_id_to, uint16_t interval)
-    {
-
-      for (uint16_t i = q8rf_device_id_from; i < q8rf_device_id_to; i += 1)
-      {
-        uint8_t msg_pair[45];
-        this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
-        this->send_msg(msg_pair);
-        ESP_LOGI(TAG, "Send message PAIR device: 0x%04x zone: %d ", i, q8rf_zone_id);
-        delay(interval);
-      }
     }
 
   } // namespace q7rf
