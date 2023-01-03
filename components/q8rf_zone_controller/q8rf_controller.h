@@ -3,8 +3,9 @@
 #include "esphome/core/component.h"
 #include "esphome/components/spi/spi.h"
 #include "esphome/components/api/custom_api_device.h"
-#include "q8rf_controller.h"
 
+#ifndef q8rf_controller_h
+#define q8rf_controller_h
 namespace esphome
 {
   namespace q8rf
@@ -42,8 +43,9 @@ namespace esphome
       void setup() override;
       void dump_config() override;
       bool send_msg(uint8_t *msg);
-      void scan(uint16_t q8rf_zone_id, uint16_t q8rf_device_id_from, uint16_t q8rf_device_id_to, uint16_t interval);
+      void on_scan(int  q8rf_zone_id, int  q8rf_device_id_from, int  q8rf_device_id_to, int  interval);
     };
 
   } // namespace q7rf
 } // namespace esphome
+#endif

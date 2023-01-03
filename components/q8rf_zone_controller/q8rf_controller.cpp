@@ -345,14 +345,30 @@ namespace esphome
         return;
       }
 
-      
       this->initialized_ = true;
+
+      register_service(&Q8RFController::on_scan, "on_scan",
+                       {"q8rf_zone_id", "q8rf_device_id_from", "q8rf_device_id_to", "interval"});
     }
 
     void Q8RFController::dump_config()
     {
       ESP_LOGCONFIG(TAG, "Q8RF:");
       LOG_PIN("CC1101 CS Pin: ", this->cs_);
+    }
+
+    void Q8RFController::on_scan(int q8rf_zone_id, int q8rf_device_id_from, int q8rf_device_id_to, int interval)
+    {
+
+      for (uint16_t i = q8rf_device_id_from; i < q8rf_device_id_to; i += 1)
+      {
+
+        uint8_t msg_pair[45];
+        this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
+        this->send_msg(msg_pair);
+        ESP_LOGI(TAG, "Send message PAIR device: 0x%04x zone: %d ", i, q8rf_zone_id);
+        delay(interval);
+      }
     }
 
   } // namespace q7rf
