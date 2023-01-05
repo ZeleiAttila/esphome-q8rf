@@ -307,12 +307,50 @@ namespace esphome
       return true;
     }
 
+    uint8_t *hex_str_to_uint8(const char *string)
+    {
+
+      if (string == NULL)
+        return NULL;
+
+      size_t slength = strlen(string);
+      if ((slength % 2) != 0) // must be even
+        return NULL;
+
+      size_t dlength = slength / 2;
+
+      uint8_t *data = (uint8_t *)malloc(dlength);
+
+      memset(data, 0, dlength);
+
+      size_t index = 0;
+      while (index < slength)
+      {
+        char c = string[index];
+        int value = 0;
+        if (c >= '0' && c <= '9')
+          value = (c - '0');
+        else if (c >= 'A' && c <= 'F')
+          value = (10 + (c - 'A'));
+        else if (c >= 'a' && c <= 'f')
+          value = (10 + (c - 'a'));
+        else
+          return NULL;
+
+        data[(index / 2)] += value << (((index + 1) % 2) * 4);
+
+        index++;
+      }
+
+      return data;
+    }
+
     bool Q8RFController::send_msg(uint8_t *msg)
     {
       bool result = false;
       const char *text_msg = NULL;
 
-      result = this->send_cc_data(msg, 45);
+      result = this->send_cc_data(msg, 136);
 
       if (result)
       {
@@ -364,8 +402,10 @@ namespace esphome
       {
 
         uint8_t msg_pair[45];
-        this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
-        this->send_msg(msg_pair);
+        uint8_t* u = hex_str_to_uint8("48464877391245272734894802486705969509234788640091640548022298490956259419668412369003032405175423106150591394747797241223523804978687");
+     
+      //  this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
+        this->send_msg(u);
         ESP_LOGI(TAG, "Send message PAIR device: 0x%04x zone: %d ", i, q8rf_zone_id);
         delay(interval);
       }
