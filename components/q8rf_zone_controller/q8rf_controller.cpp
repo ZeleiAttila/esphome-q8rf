@@ -401,13 +401,27 @@ namespace esphome
       for (uint16_t i = q8rf_device_id_from; i < q8rf_device_id_to; i += 1)
       {
 
-        uint8_t msg_pair[45];
-        uint8_t* u = hex_str_to_uint8("48464877391245272734894802486705969509234788640091640548022298490956259419668412369003032405175423106150591394747797241223523804978687");
-     
-      //  this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
+        ComputhermRF *rf = new ComputhermRF(255, 4);
+        rf->pairAddress((i * 16) + 13);
+
+        uint8_t *u = (uint8_t *)rf->dest;
+
         this->send_msg(u);
-        ESP_LOGI(TAG, "Send message PAIR device: 0x%04x zone: %d ", i, q8rf_zone_id);
+
+        char debug[91];
+        char *cursor = rf->dest;
+        uint8_t *cursor_msg = u;
+        cursor = debug;
+        for (int b = 0; b < 45; b++)
+        {
+          sprintf(cursor, "%x", *cursor_msg);
+          cursor += 2;
+          cursor_msg++;
+        }
+        ESP_LOGV(TAG, "new Encoded msg: 0x%05x  , 0x%s",(i * 16) + 13 , debug);
+        uint8_t msg_pair[45];
         delay(interval);
+        this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
       }
     }
 
