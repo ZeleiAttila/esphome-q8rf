@@ -135,8 +135,6 @@ namespace esphome
       encode_bits(zone_id, 4, &cursor);
       encode_bits(cmd, 8, &cursor);
 
-
-
       // Repeat the command once more
       strncpy(cursor, payload_start, cursor - payload_start);
       cursor += cursor - payload_start;
@@ -364,6 +362,21 @@ namespace esphome
 
       for (uint16_t i = q8rf_device_id_from; i < q8rf_device_id_to; i += 1)
       {
+
+        ComputhermRF *rf = new ComputhermRF(255, 4);
+        rf->pairAddress((i * 16) + 13);
+
+        uint8_t *u = (uint8_t *)rf->dest;
+
+        //  this->send_msg(u);
+
+        size_t n = sizeof(rf->dest) / sizeof(rf->dest[0]);
+
+        // loop through the array elements
+        for (size_t i = 0; i < n; i++)
+        {
+          ESP_LOGV(TAG, "msg: %d", rf->dest[i]);
+        }
 
         uint8_t msg_pair[45];
         this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
