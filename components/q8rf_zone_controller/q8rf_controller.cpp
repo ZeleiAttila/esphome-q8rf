@@ -397,7 +397,7 @@ namespace esphome
 
     void Q8RFController::on_scan(int q8rf_zone_id, int q8rf_device_id_from, int q8rf_device_id_to, int interval)
     {
-
+      ESP_LOGV(TAG, "on_scan");
       for (uint16_t i = q8rf_device_id_from; i < q8rf_device_id_to; i += 1)
       {
 
@@ -406,19 +406,16 @@ namespace esphome
 
         uint8_t *u = (uint8_t *)rf->dest;
 
-      //  this->send_msg(u);
+        //  this->send_msg(u);
 
-        char debug[91];
-        char *cursor = rf->dest;
-        uint8_t *cursor_msg = u;
-        cursor = debug;
-        for (int b = 0; b < 45; b++)
+        size_t n = sizeof(rf->dest) / sizeof(rf->dest[0]);
+
+        // loop through the array elements
+        for (size_t i = 0; i < n; i++)
         {
-          sprintf(cursor, "%x", *cursor_msg);
-          cursor += 2;
-          cursor_msg++;
+          ESP_LOGV(TAG, "msg: 0x%s", rf->dest[i]);
         }
-        ESP_LOGV(TAG, "new Encoded msg: 0x%05x  , 0x%s",(i * 16) + 13 , debug);
+
         uint8_t msg_pair[45];
         delay(interval);
         this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
