@@ -367,12 +367,18 @@ namespace esphome
         rf->pairAddress((i * 16) + 13);
 
         ESP_LOGI(TAG, "msg: %s", rf->dest.c_str());
+        char binary_msg[1080];
+          for (int b = 0; b < 1080; b++)
+        {
+          binary_msg[b]= rf->dest.c_str()[b];
+        }
 
-        char binary_msg[360];
         char *cursor = binary_msg;
         // Convert msg to bytes
         cursor = binary_msg; // Reset cursor
-        uint8_t *cursor_msg = (uint8_t *)rf->dest.c_str();
+        uint8_t msg_pair2[45];
+
+        uint8_t *cursor_msg = msg_pair2;
         char binary_byte[9];
         binary_byte[8] = '\0';
         for (int b = 0; b < 45; b++)
