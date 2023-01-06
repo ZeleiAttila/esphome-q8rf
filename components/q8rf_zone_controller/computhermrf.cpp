@@ -211,13 +211,13 @@ namespace esphome
             {
                 std::string bit = "011";
                 dest.append(bit);
-                ESP_LOGI(TAG, "msg: %s", bit);
+                ESP_LOGI(TAG, "msg: %s", bit.c_str());
             }
             else
             {
                 std::string bit = "001";
                 dest.append(bit);
-                ESP_LOGI(TAG, "msg: %s", bit);
+                ESP_LOGI(TAG, "msg: %s", bit.c_str());
             }
         }
         // void ComputhermRF::_sendHalfByte(char ch) {
