@@ -406,7 +406,7 @@ namespace esphome
 
         uint8_t *u = (uint8_t *)rf->dest;
 
-        this->send_msg(u);
+      //  this->send_msg(u);
 
         char debug[91];
         char *cursor = rf->dest;
