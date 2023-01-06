@@ -375,7 +375,7 @@ namespace esphome
         // loop through the array elements
         for (size_t i = 0; i < n; i++)
         {
-          ESP_LOGV(TAG, "msg: %d", rf->dest[i]);
+          ESP_LOGI(TAG, "msg: %d", rf->dest[i]);
         }
 
         uint8_t msg_pair[45];
