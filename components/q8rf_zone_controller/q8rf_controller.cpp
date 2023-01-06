@@ -392,20 +392,20 @@ namespace esphome
         ESP_LOGI(TAG, "msg2: %s", msg_pair2);
 
         // Assemble debug print
-       //   char debug[91];
-      //    cursor = debug;
-      //    cursor_msg = msg_pair2;
-      //    for (int b = 0; b < 135; b++)
-      //    {
-       //     sprintf(cursor, "%x", *cursor_msg);
-      //      cursor += 2;
-       //     cursor_msg++;
-     //   }
-      //    ESP_LOGI(TAG, "Encoded msg: 0x%s", debug);
+          char debug[280];
+          cursor = debug;
+          cursor_msg = msg_pair2;
+          for (int b = 0; b < 135; b++)
+          {
+            sprintf(cursor, "%x", *cursor_msg);
+            cursor += 2;
+            cursor_msg++;
+        }
+          ESP_LOGI(TAG, "Encoded msg: 0x%s", debug);
 
-       //   ESP_LOGI(TAG, "msg3: %s", msg_pair2);
+         ESP_LOGI(TAG, "msg3: %s", msg_pair2);
 
-        //this->send_msg(msg_pair2);
+        this->send_msg(msg_pair2);
 
         uint8_t msg_pair[45];
         this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
