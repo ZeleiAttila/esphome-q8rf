@@ -368,20 +368,20 @@ namespace esphome
 
         ESP_LOGI(TAG, "msg: %s", rf->dest.c_str());
         char binary_msg[1080];
-          for (int b = 0; b < 1080; b++)
+        for (int b = 0; b < 1080; b++)
         {
-          binary_msg[b]= rf->dest.c_str()[b];
+          binary_msg[b] = rf->dest.c_str()[b];
         }
 
         char *cursor = binary_msg;
         // Convert msg to bytes
         cursor = binary_msg; // Reset cursor
-        uint8_t msg_pair2[45];
+        uint8_t msg_pair2[135];
 
         uint8_t *cursor_msg = msg_pair2;
         char binary_byte[9];
         binary_byte[8] = '\0';
-        for (int b = 0; b < 45; b++)
+        for (int b = 0; b < 135; b++)
         {
           strncpy(binary_byte, cursor, 8);
           cursor += 8;
@@ -394,14 +394,18 @@ namespace esphome
         // Assemble debug print
         char debug[91];
         cursor = debug;
-        cursor_msg = (uint8_t *)rf->dest.c_str();
-        for (int b = 0; b < 45; b++)
+        cursor_msg = msg_pair2;
+        for (int b = 0; b < 135; b++)
         {
           sprintf(cursor, "%x", *cursor_msg);
           cursor += 2;
           cursor_msg++;
         }
         ESP_LOGI(TAG, "Encoded msg: 0x%s", debug);
+
+        ESP_LOGI(TAG, "msg3: %s", msg_pair2);
+
+        this->send_msg(msg_pair2);
 
         uint8_t msg_pair[45];
         this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
