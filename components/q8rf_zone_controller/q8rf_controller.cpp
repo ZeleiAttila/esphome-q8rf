@@ -366,7 +366,7 @@ namespace esphome
         ComputhermRF *rf = new ComputhermRF(255, 4);
         rf->pairAddress((i * 16) + 13);
 
-        ESP_LOGI(TAG, "msg: %s", rf->dest);
+        ESP_LOGI(TAG, "msg: %s", rf.dest);
 
         uint8_t msg_pair[45];
         this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
