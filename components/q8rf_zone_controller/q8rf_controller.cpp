@@ -405,7 +405,7 @@ namespace esphome
 
         ESP_LOGI(TAG, "msg3: %s", msg_pair2);
 
-        this->send_msg(msg_pair2);
+        //this->send_msg(msg_pair2);
 
         uint8_t msg_pair[45];
         this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
