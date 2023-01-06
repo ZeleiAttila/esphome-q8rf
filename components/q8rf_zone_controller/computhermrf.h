@@ -57,7 +57,7 @@ namespace esphome
         public:
             const std::string VERSION = "0.1.3";
             std::vector<uint8_t> bits;
-            char  dest[360];
+          std::string dest;
             ComputhermRF();
             ComputhermRF(uint8_t inputPin, uint8_t outputPin);
             void setPins(uint8_t inputPin, uint8_t outputPin);

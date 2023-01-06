@@ -209,17 +209,15 @@ namespace esphome
 
             if (bit)
             {
-                char *bit = "011";
-                strncpy(dest, bit, strlen(bit));
-                *dest += strlen(bit);
+                std::string bit = "011";
+                dest.append(bit);
 
                 //  _sendPulse(1, 2); //011
             }
             else
             {
-                char *bit = "001";
-                strncpy(dest, bit, strlen(bit));
-                *dest += strlen(bit);
+                std::string bit = "001";
+                dest.append(bit);
                 //  _sendPulse(2, 1); //001
             }
         }
