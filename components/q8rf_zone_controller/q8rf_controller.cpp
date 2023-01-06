@@ -400,7 +400,7 @@ namespace esphome
        //     sprintf(cursor, "%x", *cursor_msg);
       //      cursor += 2;
        //     cursor_msg++;
-        }
+     //   }
       //    ESP_LOGI(TAG, "Encoded msg: 0x%s", debug);
 
        //   ESP_LOGI(TAG, "msg3: %s", msg_pair2);
