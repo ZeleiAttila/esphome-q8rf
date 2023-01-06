@@ -206,7 +206,7 @@ namespace esphome
         }
         void ComputhermRF::_sendBit(bool bit)
         {
-
+            char *TAG = "Q8RFController.component";
             if (bit)
             {
                 std::string bit = "011";
