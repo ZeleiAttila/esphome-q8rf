@@ -368,6 +368,35 @@ namespace esphome
 
         ESP_LOGI(TAG, "msg: %s", rf->dest.c_str());
 
+        char binary_msg[360];
+        char *cursor = binary_msg;
+        // Convert msg to bytes
+        cursor = binary_msg; // Reset cursor
+        uint8_t *cursor_msg = (uint8_t *)rf->dest.c_str();
+        char binary_byte[9];
+        binary_byte[8] = '\0';
+        for (int b = 0; b < 45; b++)
+        {
+          strncpy(binary_byte, cursor, 8);
+          cursor += 8;
+          *cursor_msg = strtoul(binary_byte, 0, 2);
+          cursor_msg++;
+        }
+
+        ESP_LOGI(TAG, "msg2: %s", rf->dest.c_str());
+
+        // Assemble debug print
+        char debug[91];
+        cursor = debug;
+        cursor_msg = (uint8_t *)rf->dest.c_str();
+        for (int b = 0; b < 45; b++)
+        {
+          sprintf(cursor, "%x", *cursor_msg);
+          cursor += 2;
+          cursor_msg++;
+        }
+        ESP_LOGV(TAG, "Encoded msg: 0x%s", debug);
+
         uint8_t msg_pair[45];
         this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
         this->send_msg(msg_pair);
