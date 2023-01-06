@@ -383,7 +383,7 @@ namespace esphome
           cursor_msg++;
         }
 
-        ESP_LOGI(TAG, "msg2: %s", rf->dest.c_str());
+        ESP_LOGI(TAG, "msg2: %s", cursor_msg);
 
         // Assemble debug print
         char debug[91];
@@ -395,7 +395,7 @@ namespace esphome
           cursor += 2;
           cursor_msg++;
         }
-        ESP_LOGV(TAG, "Encoded msg: 0x%s", debug);
+        ESP_LOGI(TAG, "Encoded msg: 0x%s", debug);
 
         uint8_t msg_pair[45];
         this->compile_msg(i, q8rf_zone_id, Q8RF_MSG_CMD_PAIR, msg_pair);
